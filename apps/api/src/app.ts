@@ -4,6 +4,7 @@ import { logger } from "./lib/logger.js";
 import { registerErrorHandler } from "./errors/error-handler.js";
 import { registerCors } from "./plugins/cors.js";
 import { registerHelmet } from "./plugins/helmet.js";
+import prismaPlugin from "./plugins/prisma.js";
 import { healthRoutes } from "./routes/health.routes.js";
 
 export function buildApp() {
@@ -19,6 +20,8 @@ export function buildApp() {
 
   app.register(registerCors);
   app.register(registerHelmet);
+
+  app.register(prismaPlugin);
 
   app.register(healthRoutes);
 

@@ -1,11 +1,9 @@
 import { FastifyInstance } from "fastify";
 
-export async function healthRoutes(
-  app: FastifyInstance
-): Promise<void> {
+export async function healthRoutes(app: FastifyInstance): Promise<void> {
   app.get("/health/live", async () => {
     return {
-      status: "ok"
+      status: "ok",
     };
   });
 
@@ -16,20 +14,17 @@ export async function healthRoutes(
       return {
         status: "ready",
         dependencies: {
-          postgres: "up"
-        }
+          postgres: "up",
+        },
       };
     } catch (error) {
-      app.log.error(
-        error,
-        "Readiness check failed"
-      );
+      app.log.error(error, "Readiness check failed");
 
       return reply.status(503).send({
         status: "not_ready",
         dependencies: {
-          postgres: "down"
-        }
+          postgres: "down",
+        },
       });
     }
   });

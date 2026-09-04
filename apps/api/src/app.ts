@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import { logger } from "./lib/logger.js";
 import { registerErrorHandler } from "./errors/error-handler.js";
@@ -9,11 +10,11 @@ import { healthRoutes } from "./routes/health.routes.js";
 
 export function buildApp() {
   const app = Fastify({
-    loggerInstance: logger,
+    loggerInstance: logger as FastifyBaseLogger,
 
     genReqId: () => {
       return crypto.randomUUID();
-    }
+    },
   });
 
   registerErrorHandler(app);
